@@ -59,7 +59,7 @@ def main():
     total = 0
     seen = {}
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        b = p.chromium.launch(args=['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist'])
         vw, vh = (int(n) for n in a.size.split('x'))
         page = b.new_page(viewport={'width': vw, 'height': vh})
         page.goto('%s%s/?test&seed=%d' % (a.base, a.game, a.seed))
