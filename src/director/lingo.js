@@ -335,6 +335,14 @@ export function eqv(a, b) {
   }
   if (a instanceof LPoint && b instanceof LPoint) return eqv(a.h, b.h) && eqv(a.v, b.v);
   if (a instanceof LRect && b instanceof LRect) return eqv(a.l, b.l) && eqv(a.t, b.t) && eqv(a.r, b.r) && eqv(a.b, b.b);
+  // A point equals a list of the same values: the map keeps tile positions as [x, y] and
+  // clicks give point(x, y).
+  if ((a instanceof LList || a instanceof LPoint || a instanceof LRect) && (b instanceof LList || b instanceof LPoint || b instanceof LRect)) {
+    const va = listValues(a), vb = listValues(b);
+    if (va.length !== vb.length) return false;
+    for (let i = 0; i < va.length; i++) if (!eqv(va[i], vb[i])) return false;
+    return true;
+  }
   if (a instanceof LColor && b instanceof LColor) return a.r === b.r && a.g === b.g && a.b === b.b;
   if (a && a.lgEquals) return a.lgEquals(b);
   if (b && b.lgEquals) return b.lgEquals(a);

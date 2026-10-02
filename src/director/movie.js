@@ -23,6 +23,9 @@ const KEYCODES = {
   Slash: 44, KeyN: 45, KeyM: 46, Period: 47, Backquote: 50,
 };
 
+const MOUSE_EVENTS = ['mousedown', 'mouseup', 'mouseenter', 'mouseleave', 'mousewithin', 'mouseupoutside',
+  'rightmousedown', 'rightmouseup'];
+
 class Timeout {
   constructor(rt, name) { this.rt = rt; this.name = name; this.period = 0; this.handler = null; this.target = undefined; this.next = 0; this.active = false; }
   lgCall(name, args) {
@@ -646,10 +649,26 @@ export class Runtime {
     const list = this.renderer.sorted();
     for (let i = list.length - 1; i >= 0; i--) {
       const s = list[i];
-      if (!any && !s.scriptInstances.length && !(s.member && s.member.rec && s.member.rec.hasScript)) continue;
+      if (!any && !this.listensToMouse(s)) continue;
       if (this.renderer.hit(s, x, y)) return s.channel;
     }
     return 0;
+  }
+  // A sprite takes mouse events if a behavior of it, or its member's script, has a mouse
+  // handler.  The labels over the game's buttons carry only a behavior that sets their
+  // locZ, and the button under them still gets the click.
+  listensToMouse(s) {
+    for (const inst of s.scriptInstances) {
+      if (inst instanceof LInstance) {
+        for (const ev of MOUSE_EVENTS) if (inst.findHandler(ev)) return true;
+      }
+    }
+    const m = s.member;
+    if (m && m.rec && m.rec.hasScript) {
+      const script = this.scriptByMember.get(m.castLib + ':' + m.number);
+      if (script) for (const ev of MOUSE_EVENTS) if (script.handlers[ev]) return true;
+    }
+    return false;
   }
   installInput() {
     const c = this.canvas;
