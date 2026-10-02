@@ -1,0 +1,13 @@
+/* The game pages: the stage fills the window, letterboxed on black. */
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+#stage { display: block; width: 100vw; height: 100vh; height: 100dvh; touch-action: none; outline: none; }
+#status, .noscript { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; padding: 0 16px;
+  color: #ccc; font: 16px Arial, sans-serif; text-align: center; pointer-events: none; }
+#status[hidden] { display: none; }
+#gate { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 14px 28px;
+  font: bold 18px Arial, sans-serif; color: #fff; background: #d01012; border: 3px solid #fff; border-radius: 8px;
+  cursor: pointer; }
+#gate[hidden] { display: none; }
+#back { position: absolute; left: 8px; top: 6px; color: #666; font: 18px Arial, sans-serif; text-decoration: none;
+  opacity: 0.5; }
+#back:hover, #back:focus { opacity: 1; color: #ccc; }

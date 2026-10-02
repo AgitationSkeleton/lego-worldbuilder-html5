@@ -1,0 +1,9 @@
+# Text is LF everywhere; packed media are bytes.
+* text=auto eol=lf
+*.bin binary
+*.ttf binary
+*.png binary
+*.mp3 binary
+*.ogg binary
+*.wav binary
+*.dcr binary
