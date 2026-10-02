@@ -250,13 +250,15 @@ export class TextMember extends Member {
     this.paraRuns = (r.paraRuns || []).map(x => x.slice());
     this.rectW = r.rect ? r.rect.right - r.rect.left : 100;
     this.rectH = r.rect ? r.rect.bottom - r.rect.top : 20;
+    this.rx = r.regX || 0;
+    this.ry = r.regY || 0;
     this.layoutCache = null;
   }
   get typeName() { return 'text'; }
   get width() { return this.rectW; }
   get height() { return this.layout().height; }
-  get regX() { return 0; }
-  get regY() { return 0; }
+  get regX() { return this.rx; }
+  get regY() { return this.ry; }
   // The style of the first character: what text set from Lingo takes on.
   firstStyle() {
     const run = this.runs.length ? this.runs[0] : null;
@@ -334,6 +336,7 @@ export class TextMember extends Member {
         return;
       }
       case 'rect': if (v instanceof LRect) { this.rectW = toInt(v.r) - toInt(v.l); this.changed(); } return;
+      case 'regpoint': if (v instanceof LPoint) { this.rx = toInt(v.h); this.ry = toInt(v.v); this.changed(); } return;
       case 'width': this.rectW = toInt(v); this.changed(); return;
       case 'boxtype': case 'wordwrap': case 'antialias': case 'editable': case 'autotab': return;
     }

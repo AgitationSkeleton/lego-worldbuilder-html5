@@ -131,7 +131,7 @@ export class Renderer {
   drawText(ctx, s, m) {
     const layout = m.layout();
     const w = m.width, h = layout.height;
-    const x = s.locH, y = s.locV;
+    const x = s.locH - m.regX, y = s.locV - m.regY;
     if (s.ink === INK_COPY) {
       ctx.fillStyle = 'rgb(' + this.spriteRGB(s, false).join(',') + ')';
       ctx.fillRect(x, y, w, h);
@@ -154,12 +154,20 @@ export class Renderer {
   // A bitmap with the sprite's ink applied, kept for the next time.
   inked(m, s) {
     const ink = s.ink;
-    if (ink !== INK_MATTE && ink !== INK_BG_TRANSPARENT) return m.drawable();
+    // A bitmap of 8 bits or fewer takes the sprite's colours: black becomes its foreground
+    // colour and white its background colour.
+    let fore = null, back = null;
+    if (m.depth <= 8) {
+      const f = this.spriteRGB(s, true), b = this.spriteRGB(s, false);
+      if (f[0] || f[1] || f[2]) fore = f;
+      if (b[0] !== 255 || b[1] !== 255 || b[2] !== 255) back = b;
+    }
+    if (ink !== INK_MATTE && ink !== INK_BG_TRANSPARENT && !fore && !back) return m.drawable();
     const bg = ink === INK_BG_TRANSPARENT ? this.spriteRGB(s, false) : [255, 255, 255];
-    const key = ink + ':' + bg.join(',');
+    const key = ink + ':' + bg.join(',') + ':' + (fore ? fore.join(',') : '') + ':' + (back ? back.join(',') : '');
     let c = m.inkCache.get(key);
     if (c) return c;
-    c = makeInked(m, ink, bg);
+    c = makeInked(m, ink, bg, fore, back);
     m.inkCache.set(key, c);
     return c;
   }
@@ -169,7 +177,8 @@ export class Renderer {
     if (!m || !s.visible) return false;
     const l = s.left, t = s.top, w = s.width, h = s.height;
     if (m instanceof TextMember) {
-      return x >= s.locH && y >= s.locV && x < s.locH + m.width && y < s.locV + m.height;
+      const tl = s.locH - m.regX, tt = s.locV - m.regY;
+      return x >= tl && y >= tt && x < tl + m.width && y < tt + m.height;
     }
     if (x < l || y < t || x >= l + w || y >= t + h) return false;
     if (m instanceof BitmapMember && s.ink === INK_MATTE) {
@@ -189,7 +198,7 @@ export class Renderer {
   }
 }
 
-function makeInked(m, ink, bg) {
+function makeInked(m, ink, bg, fore, back) {
   const src = m.canvas();
   const w = src.width, h = src.height;
   const c = document.createElement('canvas');
@@ -204,7 +213,7 @@ function makeInked(m, ink, bg) {
     for (let i = 0; i < d.length; i += 4) {
       if (d[i] === br && d[i + 1] === bgG && d[i + 2] === bb) d[i + 3] = 0;
     }
-  } else {
+  } else if (ink === INK_MATTE) {
     // Matte: the white that reaches the edges of the bitmap is taken away.
     const seen = new Uint8Array(w * h);
     const stack = [];
@@ -220,6 +229,14 @@ function makeInked(m, ink, bg) {
       if (x < w - 1) push(p + 1);
       if (y > 0) push(p - w);
       if (y < h - 1) push(p + w);
+    }
+  }
+  // Colouring comes after transparency, which is decided on the bitmap's own colours.
+  if (fore || back) {
+    for (let i = 0; i < d.length; i += 4) {
+      const r = d[i], g = d[i + 1], b = d[i + 2];
+      if (fore && r === 0 && g === 0 && b === 0) { d[i] = fore[0]; d[i + 1] = fore[1]; d[i + 2] = fore[2]; }
+      else if (back && r === 255 && g === 255 && b === 255) { d[i] = back[0]; d[i + 1] = back[1]; d[i + 2] = back[2]; }
     }
   }
   ctx.putImageData(img, 0, 0);

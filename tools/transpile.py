@@ -277,13 +277,18 @@ class Gen:
                 out += '\n' + ind + '} else {\n' + self.block(s[3], ind + '  ')
             return out + '\n' + ind + '}'
         if t == 'while':
-            return ind + 'while ($L.t(%s)) {\n%s\n%s}' % (self.e(s[1]), self.block(s[2], ind + '  '), ind)
+            # A loop that never ends would hang the page: after five million passes it is
+            # stopped as a script error.
+            g = self.newtmp()
+            return ind + 'for (let %s = 0; $L.t(%s); %s++) {\n%s  if (%s > 5e6) $L.stuck();\n%s\n%s}' % (
+                g, self.e(s[1]), g, ind, g, self.block(s[2], ind + '  '), ind)
         if t == 'repeatto':
             v = self.var(s[1])
             cmp = 'le' if s[4] else 'ge'
             step = 'add' if s[4] else 'sub'
-            return ind + 'for (%s = %s; $L.%s(%s, %s); %s = $L.%s(%s, 1)) {\n%s\n%s}' % (
-                v, self.e(s[2]), cmp, v, self.e(s[3]), v, step, v, self.block(s[5], ind + '  '), ind)
+            g = self.newtmp()
+            return ind + 'for (let %s = (%s = %s, 0); $L.%s(%s, %s); %s = $L.%s(%s, 1)) {\n%s  if (++%s > 5e6) $L.stuck();\n%s\n%s}' % (
+                g, v, self.e(s[2]), cmp, v, self.e(s[3]), v, step, v, ind, g, self.block(s[5], ind + '  '), ind)
         if t == 'repeatin':
             v = self.var(s[1])
             lst, n, i = self.newtmp(), self.newtmp(), self.newtmp()
@@ -350,6 +355,44 @@ def walk(stmts):
                 yield from walk(s[3])
 
 
+def fix_chunk_var_refs(text, lasm):
+    """Correct a ProjectorRays 0.2.0 slip with Director 8 bytecode.
+
+    A chunk of a local variable used as a target ("delete tmline.char[1]") compiles to
+    pushint8 <n>, pushchunkvarref 5.  The n on the stack is the local's plain number, but
+    getlocal and setlocal operands are that number times 8, and the decompiler names the
+    local as if n were already multiplied: World Builder 2's map display manager came out
+    as "delete i.char[1]", deleting from its loop counter, where the movie deletes from
+    tmline.  The bytecode listing beside each script says which local it really is.
+    """
+    fixes = []
+    locals_ = {}
+    prev = ''
+    for line in lasm.splitlines():
+        if line.startswith('on '):
+            locals_ = {}
+        m = re.search(r'\b[gs]etlocal (\d+)\b.*?(?:<(\w+)>|\s(\w+) = )', line)
+        if m:
+            locals_[int(m.group(1))] = m.group(2) or m.group(3)
+        m = re.search(r'pushchunkvarref 5 \.+ <(\w+)>', line)
+        if m:
+            n = re.search(r'push(?:int8|int16|zero)\s*(\d*)', prev)
+            if n:
+                k = int(n.group(1) or 0)
+                right = locals_.get(k * 8)
+                if right and right != m.group(1):
+                    fixes.append((m.group(1), right))
+        m = re.search(r'objcall \d+ \.+ (delete|put) (.*)$', line)
+        if m and fixes and fixes[-1][0] in m.group(2):
+            wrong, right = fixes[-1]
+            stmt = m.group(1) + ' ' + m.group(2)
+            fixed = re.sub(r'\b%s\b' % re.escape(wrong), right, stmt, count=1)
+            text = text.replace(stmt, fixed, 1)
+            fixes.pop()
+        prev = line
+    return text
+
+
 def load_scripts(movie):
     base = os.path.join(WORK, 'pr', movie, movie, 'casts')
     movie_json = None
@@ -362,6 +405,9 @@ def load_scripts(movie):
             m = re.match(r'(\w+) (\d+)(?: - (.*))?\.ls$', f)
             kind, num, name = m.group(1), int(m.group(2)), m.group(3) or ''
             text = open(os.path.join(d, f), encoding='latin-1').read()
+            lasm = os.path.join(d, f[:-3] + '.lasm')
+            if os.path.exists(lasm):
+                text = fix_chunk_var_refs(text, open(lasm, encoding='latin-1').read())
             scripts.append(dict(cast=cast, number=num, name=name, kind=SCRIPT_KINDS.get(kind, kind),
                                 ast=parse(text, f), source=f))
     return scripts

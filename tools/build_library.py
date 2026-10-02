@@ -245,6 +245,11 @@ def build(game, movie):
                     for st in t['styles']:
                         st['family'] = font_family(st['font'])
                     rec.update(type='text', **t)
+                    # The member's rect around its registration point (info item 12).
+                    items = m['infoItems']
+                    if len(items) > 12 and len(items[12]) == 16:
+                        top, left, bottom, right = struct.unpack('>iiii', items[12])
+                        rec['regX'], rec['regY'] = -left, -top
                 elif kind == 'font':
                     rec.update(type='font', family=font_family(m['name']), file=font_files.get(m['name']))
                 else:

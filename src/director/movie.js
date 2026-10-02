@@ -577,8 +577,10 @@ export class Runtime {
     this.sound.pump();
   }
   stepActors() {
-    for (const o of this.actorList.a.slice()) {
-      if (o instanceof LInstance) {
+    const list = this.actorList;
+    for (const o of list.a.slice()) {
+      // an actor taken off the list by another's stepFrame is not stepped
+      if (o instanceof LInstance && list.a.includes(o)) {
         const h = o.findHandler('stepframe');
         if (h) this.guard(() => h.fn.call(h.inst, h.inst));
       }

@@ -486,7 +486,8 @@ const S1_100 = {
     appendinv(me) {
       let amount, i, kind, t;
       t = $L.cat($L.cat($L.cat("\r", "\r"), "You have: "), "\r");
-      for (i = 1; $L.le(i, $L.gp($L.gp($G.glob, "inventory"), "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp($G.glob, "inventory"), "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         kind = $L.mc($L.gp($G.glob, "inventory"), "getpropat", i);
         amount = $L.gpi($G.glob, "inventory", i);
         t = $L.cat($L.cat($L.cat($L.cat(t, kind), ": "), amount), "\r");
@@ -743,7 +744,8 @@ const S1_110 = {
     beginsprite(me) {
       let i;
       this.$.ss = $L.plist([]);
-      for (i = 1; $L.le(i, 6); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, 6); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.mc(this.$.ss, "addprop", $B.symbol($L.cat("outline", i)), $B.sprite($L.sub($L.add($L.gp(me, "spritenum"), i), 1)));
       }
       $L.si(this.$.ss, $s_ghost, $B.sprite($L.add($L.gp(me, "spritenum"), 6)));
@@ -752,7 +754,8 @@ const S1_110 = {
     },
     show(me, outlineloc, ghostloc, ghostmember, loczs, flag) {
       let i, s;
-      for (i = 1; $L.le(i, 6); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, 6); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.sp($L.gi(this.$.ss, i), "locz", $L.gi(loczs, i));
         $L.sp($L.gi(this.$.ss, i), "loc", outlineloc);
       }
@@ -766,8 +769,8 @@ const S1_110 = {
         $L.sp($L.gp(this.$.ss, "icon"), "member", "icon.build.no");
         $L.sp($L.gp(this.$.ss, "ghost"), "blend", 40);
       }
-      for (let $t1 = this.$.ss, $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-        s = $L.gi($t1, $t3);
+      for (let $t2 = this.$.ss, $t3 = $L.count($t2), $t4 = 1; $t4 <= $t3; $t4++) {
+        s = $L.gi($t2, $t4);
         $L.sp(s, "visible", 1);
       }
     },
@@ -968,7 +971,8 @@ const S1_113 = {
       rec = $L.mc($L.gp($L.gp(this.$.pobj, "pbuild"), "recipe"), "duplicate");
       bricks = $L.list([]);
       $R.call(this, S1_113, "sort", bricks);
-      for (i = 1; $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         bricktype = $L.mc(rec, "getpropat", i);
         bricknum = $L.gi(rec, i);
         if ($L.t($L.eq(bricknum, 0))) {
@@ -983,7 +987,8 @@ const S1_113 = {
       $L.sp($L.gp(this.$.ss, "separators"), "member", $L.cats("plan separators", n));
       $L.sp($L.gp(this.$.ss, "separators"), "visible", 1);
       this.$.penergysprite = undefined;
-      for (i = 1; $L.le(i, n); i = $L.add(i, 1)) {
+      for (let $t2 = (i = 1, 0); $L.le(i, n); i = $L.add(i, 1)) {
+        if (++$t2 > 5e6) $L.stuck();
         snt = $B.symbol($L.cat("type", i));
         sna = $B.symbol($L.cat("amount", i));
         if ($L.t($L.eq($L.gi($L.gi(bricks, i), 2), $s_energy))) {
@@ -1001,7 +1006,8 @@ const S1_113 = {
         $L.sp($L.gi(this.$.ss, snt), "locv", $L.gi($L.gi(this.$.sloc, snt), 2));
         $L.sp($L.gi(this.$.ss, sna), "locv", $L.gi($L.gi(this.$.sloc, sna), 2));
       }
-      for (i = $L.add(n, 1); $L.le(i, 4); i = $L.add(i, 1)) {
+      for (let $t3 = (i = $L.add(n, 1), 0); $L.le(i, 4); i = $L.add(i, 1)) {
+        if (++$t3 > 5e6) $L.stuck();
         $L.sp($L.gi(this.$.ss, $B.symbol($L.cat("type", i))), "visible", 0);
         $L.sp($L.gi(this.$.ss, $B.symbol($L.cat("amount", i))), "visible", 0);
       }
@@ -1009,16 +1015,16 @@ const S1_113 = {
       $L.sp($L.gp(this.$.ss, "unit_name"), "visible", 1);
       $L.sp($L.gp(this.$.ss, "unit_icon"), "member", $L.cat($L.cat($L.cat($L.gpi(this.$.pobj, "pclass", 1), "."), $L.gpi(this.$.pobj, "pclass", 2)), ".plan"));
       $L.sp($L.gp(this.$.ss, "unit_icon"), "visible", 1);
-      for (let $t1 = $L.list([$s_unit_name, $s_unit_icon]), $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-        sn = $L.gi($t1, $t3);
+      for (let $t4 = $L.list([$s_unit_name, $s_unit_icon]), $t5 = $L.count($t4), $t6 = 1; $t6 <= $t5; $t6++) {
+        sn = $L.gi($t4, $t6);
         if ($L.t($L.eq(which, $s_plan))) {
           $L.sp($L.gi(this.$.ss, sn), "locv", $L.add($L.gi($L.gi(this.$.sloc, sn), 2), 106));
           continue;
         }
         $L.sp($L.gi(this.$.ss, sn), "locv", $L.gi($L.gi(this.$.sloc, sn), 2));
       }
-      for (let $t4 = $L.list([$s_separators]), $t5 = $L.count($t4), $t6 = 1; $t6 <= $t5; $t6++) {
-        sn = $L.gi($t4, $t6);
+      for (let $t7 = $L.list([$s_separators]), $t8 = $L.count($t7), $t9 = 1; $t9 <= $t8; $t9++) {
+        sn = $L.gi($t7, $t9);
         if ($L.t($L.eq(which, $s_plan))) {
           $L.sp($L.gi(this.$.ss, sn), "locv", $L.add($L.gi($L.gi(this.$.sloc, sn), 2), 84));
           continue;
@@ -1038,7 +1044,8 @@ const S1_113 = {
       if ($L.t($L.not($B.voidp($L.gi(m, $s_carries))))) {
         tx = $L.gp($B.member("label.pick.language"), "text");
         tx2 = "";
-        for (i = 1; $L.le(i, $L.gp(tx, "length")); i = $L.add(i, 1)) {
+        for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(tx, "length")); i = $L.add(i, 1)) {
+          if (++$t1 > 5e6) $L.stuck();
           a = $L.gpi(tx, "char", i);
           if ($L.t($L.eq(a, "*"))) {
             a = $B.string($L.gp(m, "carries"));
@@ -1048,8 +1055,8 @@ const S1_113 = {
         $L.sp($B.member("label.pick"), "text", tx2);
       }
       n = 1;
-      for (let $t1 = $L.gp(m, "options"), $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-        o = $L.gi($t1, $t3);
+      for (let $t2 = $L.gp(m, "options"), $t3 = $L.count($t2), $t4 = 1; $t4 <= $t3; $t4++) {
+        o = $L.gi($t2, $t4);
         ab = $B.symbol($L.cat("actionbutton", n));
         at = $B.symbol($L.cat($L.cat("actionbutton", n), "text"));
         $L.sp($L.gi(this.$.ss, at), "member", $L.cat("label.", o));
@@ -1174,25 +1181,26 @@ const S1_115 = {
       if ($L.t($B.voidp(this.$.pslide))) {
         return;
       }
-      for (i = 1; $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.sp($L.gi(this.$.ss, i), "loc", $L.add($L.gi(this.$.sloc, i), $B.point($L.gp(this.$.pslide, "offset"), 0)));
       }
       {
-        const $t1 = $L.gp(this.$.pslide, "mode");
-        if ($L.eqb($t1, $s_in)) {
+        const $t2 = $L.gp(this.$.pslide, "mode");
+        if ($L.eqb($t2, $s_in)) {
           $L.sp(this.$.pslide, "offset", $L.sub($L.gp(this.$.pslide, "offset"), 50));
           if ($L.t($L.le($L.gp(this.$.pslide, "offset"), 0))) {
             $L.sp(this.$.pslide, "mode", $s_bounce1);
           }
-        } else if ($L.eqb($t1, $s_bounce1)) {
+        } else if ($L.eqb($t2, $s_bounce1)) {
           $L.sp(this.$.pslide, "offset", $L.add($L.gp(this.$.pslide, "offset"), 7));
           $L.sp(this.$.pslide, "mode", $s_bounce2);
-        } else if ($L.eqb($t1, $s_bounce2)) {
+        } else if ($L.eqb($t2, $s_bounce2)) {
           $L.sp(this.$.pslide, "offset", $L.sub($L.gp(this.$.pslide, "offset"), 4));
           $L.sp(this.$.pslide, "mode", $s_bounce3);
-        } else if ($L.eqb($t1, $s_bounce3)) {
+        } else if ($L.eqb($t2, $s_bounce3)) {
           this.$.pslide = undefined;
-        } else if ($L.eqb($t1, $s_out)) {
+        } else if ($L.eqb($t2, $s_out)) {
           $L.sp(this.$.pslide, "offset", $L.add($L.gp(this.$.pslide, "offset"), 50));
           if ($L.t($L.ge($L.gp(this.$.pslide, "offset"), 350))) {
             this.$.pslide = undefined;
@@ -1327,7 +1335,8 @@ const S1_118 = {
       this.$.ss = $L.list([]);
       this.$.sloc = $L.list([]);
       n = $L.gp(me, "spritenum");
-      for (i = 1; $L.le(i, 17); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, 17); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.si(this.$.ss, i, $B.sprite($L.sub($L.add(n, i), 1)));
         $L.si(this.$.sloc, i, $L.sub($L.gp($B.sprite($L.sub($L.add(n, i), 1)), "loc"), $L.gp($B.sprite(n), "loc")));
       }
@@ -1352,7 +1361,8 @@ const S1_118 = {
       if ($L.t($L.eq(contents, $s_plan))) {
         $L.sp($L.gi(this.$.ss, 1), "member", "plan_on_map_rollover");
         $L.sp($L.gi(this.$.ss, 1), "loc", ploc);
-        for (i = 2; $L.le(i, 17); i = $L.add(i, 1)) {
+        for (let $t1 = (i = 2, 0); $L.le(i, 17); i = $L.add(i, 1)) {
+          if (++$t1 > 5e6) $L.stuck();
           $L.sp($L.gi(this.$.ss, i), "loc", $B.point(1000, 1000));
         }
         return;
@@ -1366,8 +1376,8 @@ const S1_118 = {
         ef = 0;
         el = 0;
         ed = 0;
-        for (let $t1 = $L.gp(contents, "energy"), $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-          e = $L.gi($t1, $t3);
+        for (let $t2 = $L.gp(contents, "energy"), $t3 = $L.count($t2), $t4 = 1; $t4 <= $t3; $t4++) {
+          e = $L.gi($t2, $t4);
           if ($L.t($L.ge(e, $L.gpi($L.gp($L.gp($G.glob, "buildconfig"), "setup"), "energy_bricks", 2)))) {
             ef = $L.add(ef, 1);
             continue;
@@ -1390,7 +1400,8 @@ const S1_118 = {
       }
       sorted = $L.list([]);
       $R.call(this, S1_118, "sort", sorted);
-      for (i = 1; $L.le(i, $L.gp(bricks, "count")); i = $L.add(i, 1)) {
+      for (let $t5 = (i = 1, 0); $L.le(i, $L.gp(bricks, "count")); i = $L.add(i, 1)) {
+        if (++$t5 > 5e6) $L.stuck();
         bricktype = $L.mc(bricks, "getpropat", i);
         bricknum = $L.gi(bricks, i);
         $L.mc(sorted, "add", $L.list([$L.neg(bricknum), bricktype]));
@@ -1403,7 +1414,8 @@ const S1_118 = {
       if ($L.t($L.ne(opt, $s_update))) {
         $L.sp($L.gi(this.$.ss, 1), "loc", ploc);
       }
-      for (i = 1; $L.le(i, $L.gp(sorted, "count")); i = $L.add(i, 1)) {
+      for (let $t6 = (i = 1, 0); $L.le(i, $L.gp(sorted, "count")); i = $L.add(i, 1)) {
+        if (++$t6 > 5e6) $L.stuck();
         if ($L.t($L.gt(i, 8))) {
           break;
         }
@@ -1416,7 +1428,8 @@ const S1_118 = {
           $L.sp($L.gi(this.$.ss, $L.add(9, i)), "loc", $L.add(ploc, $L.gi(this.$.sloc, $L.add(9, i))));
         }
       }
-      for (i = i; $L.le(i, 8); i = $L.add(i, 1)) {
+      for (let $t7 = (i = i, 0); $L.le(i, 8); i = $L.add(i, 1)) {
+        if (++$t7 > 5e6) $L.stuck();
         $L.sp($L.gi(this.$.ss, $L.add(1, i)), "loc", $B.point(1000, 1000));
         $L.sp($L.gi(this.$.ss, $L.add(9, i)), "loc", $B.point(1000, 1000));
       }
@@ -1475,7 +1488,8 @@ const S1_119 = {
       } else {
         $L.sp($L.gp(this.$.ss, "sfx_mute"), "member", "icon.check_mark");
       }
-      for (i = 1; $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         sl = $L.mc(this.$.ss, "getpropat", i);
         $L.sp($L.gi(this.$.ss, sl), "loc", $L.gi(this.$.sloc, sl));
       }
@@ -1618,7 +1632,8 @@ const S1_121 = {
       } else {
         sprites = $L.list([9, 13]);
       }
-      for (i = 1; $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         sl = $L.mc(this.$.ss, "getpropat", i);
         if ($L.t($L.and($L.ge(i, $L.gi(sprites, 1)), $L.le(i, $L.gi(sprites, 2))))) {
           $L.sp($L.gi(this.$.ss, sl), "loc", $L.add(ploc, $L.gi(this.$.sloc, sl)));
@@ -1688,7 +1703,8 @@ const S1_123 = {
       n = $L.gp(me, "spritenum");
       this.$.ss = $L.plist([$s_bubble, $B.sprite(n), $s_hed, $B.sprite($L.add(n, 1)), $s_unit, $B.sprite($L.add(n, 2)), $s_caption, $B.sprite($L.add(n, 3))]);
       this.$.sloc = $L.plist([]);
-      for (i = 1; $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         t = $L.mc(this.$.ss, "getpropat", i);
         $L.si(this.$.sloc, t, $L.sub($L.gp($L.gi(this.$.ss, t), "loc"), $L.gp($L.gp(this.$.ss, "bubble"), "loc")));
       }
@@ -1710,7 +1726,8 @@ const S1_123 = {
       } else {
         $L.sp($L.gp(this.$.ss, "hed"), "member", "label.bonus_goal");
       }
-      for (i = 1; $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.sp($L.gi(this.$.ss, i), "loc", $L.add(ploc, $L.gi(this.$.sloc, i)));
       }
     },
@@ -1763,7 +1780,8 @@ const S1_124 = {
       step = $L.div(total, $f6);
       j = 1;
       t = 0;
-      for (i = 1; $L.le(i, $L.gp(this.$.pbricks, "count")); i = $L.add(i, 1)) {
+      for (let $t4 = (i = 1, 0); $L.le(i, $L.gp(this.$.pbricks, "count")); i = $L.add(i, 1)) {
+        if (++$t4 > 5e6) $L.stuck();
         $L.sp($L.gi(this.$.pbricks, i), "member", $L.cat("carry.", $B.string($L.mc(recipe, "getpropat", j))));
         t = $L.add(t, step);
         if ($L.t($L.gt(t, $L.gi(recipe, j)))) {
@@ -1774,7 +1792,8 @@ const S1_124 = {
           }
         }
       }
-      for (i = i; $L.le(i, $L.gp(this.$.pbricks, "count")); i = $L.add(i, 1)) {
+      for (let $t5 = (i = i, 0); $L.le(i, $L.gp(this.$.pbricks, "count")); i = $L.add(i, 1)) {
+        if (++$t5 > 5e6) $L.stuck();
         $L.sp($L.gi(this.$.pbricks, i), "member", "carry.none");
       }
       this.$.ptime = $R.the("milliseconds");
@@ -1797,7 +1816,8 @@ const S1_124 = {
       $L.sp(this.$.pcloud, "loc", l);
       $L.sp(this.$.pcloud, "locz", lz);
       $L.sp(this.$.pcloud, "member", $L.cat("build_cloud", $L.add(1, $L.mod($L.div($R.the("milliseconds"), 200), 2))));
-      for (i = 1; $L.le(i, $L.gp(this.$.pbricks, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.pbricks, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         theta = $L.mul($L.mul(2, $L.PI), $L.add($L.mul(6, t), $L.div(i, $f8)));
         phi = $L.mul($L.mul(2, $L.PI), $L.add($L.mul($f9, t), $L.div(i, $f6)));
         a = $L.sub($f10, $L.div(t, $f11));
@@ -1864,12 +1884,14 @@ const S1_126 = {
       nextlist = $L.list(["{Next Marker}"]);
       prevlist = $L.list([]);
       nummarkers = $L.chunkCount($R.the("labellist"), "line");
-      for (i = 1; $L.le(i, nummarkers); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, nummarkers); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         l = $L.gpi($R.the("labellist"), "line", i);
         $R.call(this, S1_126, "add", marklist, l);
         $R.call(this, S1_126, "add", marklistpopdown, l);
       }
-      for (e = 1; $L.le(e, $L.gp(marklistpopdown, "count")); e = $L.add(e, 1)) {
+      for (let $t2 = (e = 1, 0); $L.le(e, $L.gp(marklistpopdown, "count")); e = $L.add(e, 1)) {
+        if (++$t2 > 5e6) $L.stuck();
         if ($L.t($L.eq($R.call(this, S1_126, "getat", marklistpopdown, e), ""))) {
           $L.mc(marklistpopdown, "deleteat", e);
         }
@@ -1878,7 +1900,8 @@ const S1_126 = {
       if ($L.t($L.eq($L.gi(marklistpopdown, totalmarkers), ""))) {
         $L.mc(marklistpopdown, "deleteat", totalmarkers);
       }
-      for (r = 1; $L.le(r, $L.gp(marklistpopdown, "count")); r = $L.add(r, 1)) {
+      for (let $t3 = (r = 1, 0); $L.le(r, $L.gp(marklistpopdown, "count")); r = $L.add(r, 1)) {
+        if (++$t3 > 5e6) $L.stuck();
         if ($L.t($L.gt($R.the("frame"), $L.gp($R.call(this, S1_126, "getat", marklistpopdown, r), "marker")))) {
           $R.call(this, S1_126, "add", prevlist, $R.call(this, S1_126, "getat", marklistpopdown, r));
         }
@@ -2024,7 +2047,8 @@ const S1_142 = {
       let i, rr, ss;
       rr = "";
       ss = $B.string(tt);
-      for (i = 1; $L.le(i, $L.gp($L.gp(ss, "char"), "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp(ss, "char"), "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         if ($L.t($L.eq($L.gpi(ss, "char", i), "_"))) {
           rr = $L.cat(rr, " ");
           continue;
@@ -2100,7 +2124,8 @@ const S1_142 = {
     showrecipe(me) {
       let i, t;
       t = $L.cat($L.cats("PLAN for", $L.gi(this.$.pclass, 2)), "\r");
-      for (i = 1; $L.le(i, $L.gp($L.gp(this.$.pbuild, "recipe"), "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp(this.$.pbuild, "recipe"), "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         t = $L.cat($L.cats($L.cat($L.cat(t, $L.mc($L.gp(this.$.pbuild, "recipe"), "getpropat", i)), ":"), $L.gpi(this.$.pbuild, "recipe", i)), "\r");
       }
       return t;
@@ -2363,7 +2388,8 @@ const S1_99 = {
       this.$.pmenu = menu;
       t = "<html><head></head><body bgcolor='#ffffff'>";
       t = $L.cat($L.cat($L.cat(t, "<u>"), $L.gp(menu, "title")), "</u><br>");
-      for (n = 1; $L.le(n, $L.gp($L.gp(menu, "options"), "count")); n = $L.add(n, 1)) {
+      for (let $t1 = (n = 1, 0); $L.le(n, $L.gp($L.gp(menu, "options"), "count")); n = $L.add(n, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         o = $L.gpi(menu, "options", n);
         if ($L.t($L.eq(n, $L.sub(highlightline, 1)))) {
           t = $L.cat($L.cat($L.cat(t, "<b>"), o), "</b><br>");
@@ -2428,8 +2454,10 @@ const S1_89 = {
       let lnum, memberfilename, membername, wnum;
       if ($L.t($L.eq($R.the("runmode"), "Author"))) {
         $L.sp($B.member("config"), "filename", "config.txt");
-        for (wnum = 4; $L.le(wnum, 5); wnum = $L.add(wnum, 1)) {
-          for (lnum = 1; $L.le(lnum, 12); lnum = $L.add(lnum, 1)) {
+        for (let $t1 = (wnum = 4, 0); $L.le(wnum, 5); wnum = $L.add(wnum, 1)) {
+          if (++$t1 > 5e6) $L.stuck();
+          for (let $t2 = (lnum = 1, 0); $L.le(lnum, 12); lnum = $L.add(lnum, 1)) {
+            if (++$t2 > 5e6) $L.stuck();
             membername = $L.cat($L.cat($L.cat("map", wnum), "."), lnum);
             memberfilename = $L.cat(membername, ".txt");
             $L.sp($B.member(membername), "filename", memberfilename);
@@ -2442,7 +2470,8 @@ const S1_89 = {
       let l, ln, m, t, w;
       t = $L.gp($B.member("level names"), "text");
       $L.si($G.glob, $s_mission_names, $L.list([]));
-      for (ln = 1; $L.le(ln, $L.chunkCount(t, "line")); ln = $L.add(ln, 1)) {
+      for (let $t1 = (ln = 1, 0); $L.le(ln, $L.chunkCount(t, "line")); ln = $L.add(ln, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         l = $L.gpi(t, "line", ln);
         if ($L.t($L.eq($L.gp(l, "length"), 0))) {
           continue;
@@ -2591,7 +2620,8 @@ const S1_90 = {
       section = ret;
       $R.setThe("itemdelimiter", ",");
       t = $R.call(this, S1_90, "fixreturns", t);
-      for (ln = 1; $L.le(ln, $L.gp($L.gp(t, "line"), "count")); ln = $L.add(ln, 1)) {
+      for (let $t1 = (ln = 1, 0); $L.le(ln, $L.gp($L.gp(t, "line"), "count")); ln = $L.add(ln, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         l = $R.call(this, S1_90, "trim", $L.gpi(t, "line", ln));
         if ($L.t($L.eq($L.gp(l, "length"), 0))) {
           continue;
@@ -2621,7 +2651,8 @@ const S1_90 = {
           continue;
         }
         pkey = undefined;
-        for (pn = 1; $L.le(pn, $L.gp($L.gp(l, "item"), "count")); pn = $L.add(pn, 1)) {
+        for (let $t2 = (pn = 1, 0); $L.le(pn, $L.gp($L.gp(l, "item"), "count")); pn = $L.add(pn, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           p = $L.gpi(l, "item", pn);
           d = $B.offset("=", p);
           if ($L.t($L.eq(d, 0))) {
@@ -2640,7 +2671,8 @@ const S1_90 = {
           if ($L.t($L.eq($L.gpi(pkey, "char", 1), "#"))) {
             pkey = $L.deleteChunk(pkey, "char", 1, 0);
             restofline = pval;
-            for (rol = $L.add(pn, 1); $L.le(rol, $L.gp($L.gp(l, "item"), "count")); rol = $L.add(rol, 1)) {
+            for (let $t3 = (rol = $L.add(pn, 1), 0); $L.le(rol, $L.gp($L.gp(l, "item"), "count")); rol = $L.add(rol, 1)) {
+              if (++$t3 > 5e6) $L.stuck();
               restofline = $L.cat($L.cat(restofline, ","), $L.gpi(l, "item", rol));
             }
             pval_val = $L.gp(restofline, "value");
@@ -2659,7 +2691,8 @@ const S1_90 = {
         }
       }
       if ($L.t($L.eq($B.ilk(defaultlist), $s_proplist))) {
-        for (i = 1; $L.le(i, $L.gp(defaultlist, "count")); i = $L.add(i, 1)) {
+        for (let $t4 = (i = 1, 0); $L.le(i, $L.gp(defaultlist, "count")); i = $L.add(i, 1)) {
+          if (++$t4 > 5e6) $L.stuck();
           if ($L.t($L.eq($L.gi(ret, $L.mc(defaultlist, "getpropat", i)), undefined))) {
             $L.si(ret, $L.mc(defaultlist, "getpropat", i), $L.gi(defaultlist, i));
           }
@@ -2670,18 +2703,22 @@ const S1_90 = {
     tostring() {
       let bn, bracket, bracketname, keyname, keyval, kn, pl, pn, stringval, t, v;
       stringval = "";
-      for (pn = 1; $L.le(pn, arguments.length); pn = $L.add(pn, 1)) {
+      for (let $t1 = (pn = 1, 0); $L.le(pn, arguments.length); pn = $L.add(pn, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         pl = arguments[$L.toInt(pn) - 1];
-        for (bn = 1; $L.le(bn, $L.gp(pl, "count")); bn = $L.add(bn, 1)) {
+        for (let $t2 = (bn = 1, 0); $L.le(bn, $L.gp(pl, "count")); bn = $L.add(bn, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           bracketname = $L.mc(pl, "getpropat", bn);
           stringval = $L.cat($L.cat($L.cat($L.cat(stringval, "["), bracketname), "]"), "\r");
           bracket = $L.gi(pl, bn);
-          for (kn = 1; $L.le(kn, $L.gp(bracket, "count")); kn = $L.add(kn, 1)) {
+          for (let $t3 = (kn = 1, 0); $L.le(kn, $L.gp(bracket, "count")); kn = $L.add(kn, 1)) {
+            if (++$t3 > 5e6) $L.stuck();
             keyname = $L.mc(bracket, "getpropat", kn);
             keyval = $L.gi(bracket, kn);
             if ($L.t($L.eq($B.ilk(keyval), $s_list))) {
               t = $L.cat(keyname, "=");
-              for (v = 1; $L.le(v, $L.gp(keyval, "count")); v = $L.add(v, 1)) {
+              for (let $t4 = (v = 1, 0); $L.le(v, $L.gp(keyval, "count")); v = $L.add(v, 1)) {
+                if (++$t4 > 5e6) $L.stuck();
                 t = $L.cat(t, $L.gi(keyval, v));
                 if ($L.t($L.lt(v, $L.gp(keyval, "count")))) {
                   if ($L.t($L.gt($B.length(t), 60))) {
@@ -2708,7 +2745,8 @@ const S1_90 = {
         return t;
       }
       r = "";
-      for (i = 1; $L.le(i, $L.gp(t, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(t, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         r = $L.cat(r, $L.gi(t, i));
         if ($L.t($L.ne(i, $L.gp(t, "count")))) {
           r = $L.cat(r, ",");
@@ -2717,16 +2755,19 @@ const S1_90 = {
       return r;
     },
     cleanwhitespace(t) {
-      while ($L.t($L.gt($B.offset($B.numtochar(10), t), 0))) {
+      for (let $t1 = 0; $L.t($L.gt($B.offset($B.numtochar(10), t), 0)); $t1++) {
+        if ($t1 > 5e6) $L.stuck();
         t = $L.deleteChunk(t, "char", $B.offset($B.numtochar(10), t), 0);
       }
-      while ($L.t($L.gt($B.offset($B.numtochar(13), t), 0))) {
+      for (let $t2 = 0; $L.t($L.gt($B.offset($B.numtochar(13), t), 0)); $t2++) {
+        if ($t2 > 5e6) $L.stuck();
         t = $L.deleteChunk(t, "char", $B.offset($B.numtochar(13), t), 0);
       }
       return t;
     },
     fixreturns(t) {
-      while ($L.t($L.gt($B.offset($B.numtochar(10), t), 0))) {
+      for (let $t1 = 0; $L.t($L.gt($B.offset($B.numtochar(10), t), 0)); $t1++) {
+        if ($t1 > 5e6) $L.stuck();
         t = $L.putChunk(t, "char", $B.offset($B.numtochar(10), t), 0, "\r", "into");
       }
       return t;
@@ -2734,10 +2775,12 @@ const S1_90 = {
     trim(t) {
       let whitespace;
       whitespace = $L.cat($L.cat($L.cat(" ", "\r"), "\t"), $B.numtochar(10));
-      while ($L.t($L.and($L.contains(whitespace, $L.chunk(t, "char", 1, 0)), $L.gt($L.gp(t, "length"), 0)))) {
+      for (let $t1 = 0; $L.t($L.and($L.contains(whitespace, $L.chunk(t, "char", 1, 0)), $L.gt($L.gp(t, "length"), 0))); $t1++) {
+        if ($t1 > 5e6) $L.stuck();
         t = $L.deleteChunk(t, "char", 1, 0);
       }
-      while ($L.t($L.and($L.contains(whitespace, $L.lastChunk(t, "char")), $L.gt($L.gp(t, "length"), 0)))) {
+      for (let $t2 = 0; $L.t($L.and($L.contains(whitespace, $L.lastChunk(t, "char")), $L.gt($L.gp(t, "length"), 0))); $t2++) {
+        if ($t2 > 5e6) $L.stuck();
         t = $L.deleteChunk(t, "char", (-30000), 0);
       }
       return t;
@@ -2765,7 +2808,8 @@ const S1_91 = {
     listtoproplist(l) {
       let i, k, pl, v;
       pl = $L.plist([]);
-      for (i = 1; $L.le(i, $L.gp(l, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(l, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         k = $B.symbol($L.gi(l, i));
         i = $L.add(i, 1);
         v = $L.gi(l, i);
@@ -2791,7 +2835,8 @@ const S1_129 = {
       this.$.pterrainp = $L.plist([$s_normal, 1, $s_tree, 1, $s_water, 1, $s_normal_undiggable, 1, $s_hole, 1, $s_water_undiggable, 1, $s_water_reefs, 1, $s_mountain, 1, $s_billboard, 1, $s_swamp, 1, $s_volcano, 1]);
       this.$.pdefaultterrains = $L.list([$s_normal]);
       this.$.ptilesprites = $L.list([]);
-      for (i = 200; $L.le(i, 800); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 200, 0); $L.le(i, 800); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.mc(this.$.ptilesprites, "add", $B.sprite(i));
       }
       this.$.pdisplaytiletopleft = $L.list([1, 1]);
@@ -2847,7 +2892,8 @@ const S1_129 = {
         row = $L.gi($t1, $t3);
         orow = $L.list([]);
         j = $L.add(j, 1);
-        for (i = 1; $L.le(i, $L.gp(row, "length")); i = $L.add(i, 1)) {
+        for (let $t4 = (i = 1, 0); $L.le(i, $L.gp(row, "length")); i = $L.add(i, 1)) {
+          if (++$t4 > 5e6) $L.stuck();
           c = $L.gpi(row, "char", i);
           entry = $L.plist([$s_pos, $L.list([i, j]), $s_occupant_type, undefined, $s_occupant, undefined]);
           terrain = $L.gi(this.$.pterrainlookup, c);
@@ -2928,13 +2974,13 @@ const S1_129 = {
             $L.si(entry, $s_building, terrain);
             $L.si(entry, $s_member, "terrain.normal");
             {
-              const $t4 = terrain;
-              if ($L.eqb($t4, $s_buggy)) {
+              const $t5 = terrain;
+              if ($L.eqb($t5, $s_buggy)) {
                 $L.si(entry, $s_occupant_type, $s_vehicle);
                 $L.si(entry, $s_occupant, $R.call(this, S1_129, "new", $B.script($L.cat($L.cat("vehicle.", terrain), " parent")), entry, $L.plist([$s_type, terrain]), 1));
                 $L.mc($L.gp(entry, "occupant"), "init");
                 hq = $B.point(i, j);
-              } else if ($L.eqb($t4, $s_crab) || $L.eqb($t4, $s_sheep)) {
+              } else if ($L.eqb($t5, $s_crab) || $L.eqb($t5, $s_sheep)) {
                 $L.si(entry, $s_occupant_type, $s_monster);
                 $L.si(entry, $s_occupant, $R.call(this, S1_129, "new", $B.script($L.cat($L.cat("monster.", terrain), " parent")), entry, $L.plist([$s_type, terrain])));
                 $L.mc($L.gp(entry, "occupant"), "init");
@@ -2971,7 +3017,8 @@ const S1_129 = {
       }
       reachededge = 0;
       this.$.pdisplaypixelscroll = $L.sub(this.$.pdisplaypixelscroll, p);
-      for (i = 1; $L.le(i, 2); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, 2); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         if ($L.t($L.ge($L.gi(this.$.pdisplaypixelscroll, i), $L.gi(this.$.ptilesize, i)))) {
           $L.si(this.$.pdisplaypixelscroll, i, $L.sub($L.gi(this.$.pdisplaypixelscroll, i), $L.gi(this.$.ptilesize, i)));
           $L.si(s, i, $L.sub($L.gi(s, i), 1));
@@ -3011,10 +3058,12 @@ const S1_129 = {
     preparemapsprites(me) {
       let i, j, row, s, tmem;
       this.$.pmapsprites = $L.list([]);
-      for (j = 1; $L.le(j, $L.gi(this.$.pdisplaytilesize, 2)); j = $L.add(j, 1)) {
+      for (let $t1 = (j = 1, 0); $L.le(j, $L.gi(this.$.pdisplaytilesize, 2)); j = $L.add(j, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         row = $L.list([]);
         $L.mc(this.$.pmapsprites, "add", row);
-        for (i = 1; $L.le(i, $L.gi(this.$.pdisplaytilesize, 1)); i = $L.add(i, 1)) {
+        for (let $t2 = (i = 1, 0); $L.le(i, $L.gi(this.$.pdisplaytilesize, 1)); i = $L.add(i, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           s = $L.mc(me, "getasprite");
           $L.mc(row, "add", s);
           tmem = $B.member("terrain.normal");
@@ -3026,9 +3075,11 @@ const S1_129 = {
     },
     showmap(me) {
       let i, ii, j, jj, tile, tmem, vis;
-      for (j = 1; $L.le(j, $L.gi(this.$.pdisplaytilesize, 2)); j = $L.add(j, 1)) {
+      for (let $t1 = (j = 1, 0); $L.le(j, $L.gi(this.$.pdisplaytilesize, 2)); j = $L.add(j, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         jj = $L.sub($L.add($L.gi(this.$.pdisplaytiletopleft, 2), j), 2);
-        for (i = 1; $L.le(i, $L.gi(this.$.pdisplaytilesize, 1)); i = $L.add(i, 1)) {
+        for (let $t2 = (i = 1, 0); $L.le(i, $L.gi(this.$.pdisplaytilesize, 1)); i = $L.add(i, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           ii = $L.add($L.sub($L.add($L.gi(this.$.pdisplaytiletopleft, 1), i), 5), $B.integer($L.div(j, 2)));
           tile = $L.mc(me, "gettileat", $B.point(ii, jj));
           if ($L.t($B.voidp(tile))) {
@@ -3051,9 +3102,11 @@ const S1_129 = {
     },
     closemap(me) {
       let i, j, row, s, tile;
-      for (j = 1; $L.le(j, $L.gp($L.gp(this.$.pmap, "terrain"), "count")); j = $L.add(j, 1)) {
+      for (let $t1 = (j = 1, 0); $L.le(j, $L.gp($L.gp(this.$.pmap, "terrain"), "count")); j = $L.add(j, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         row = $L.gpi(this.$.pmap, "terrain", j);
-        for (i = 1; $L.le(i, $L.gp(row, "count")); i = $L.add(i, 1)) {
+        for (let $t2 = (i = 1, 0); $L.le(i, $L.gp(row, "count")); i = $L.add(i, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           tile = $L.gi(row, i);
           if ($L.t($L.not($B.voidp($L.gi(tile, $s_occupant))))) {
             $L.mc($L.gp(tile, "occupant"), "done");
@@ -3069,9 +3122,11 @@ const S1_129 = {
           }
         }
       }
-      for (j = 1; $L.le(j, $L.gp(this.$.pmapsprites, "count")); j = $L.add(j, 1)) {
+      for (let $t3 = (j = 1, 0); $L.le(j, $L.gp(this.$.pmapsprites, "count")); j = $L.add(j, 1)) {
+        if (++$t3 > 5e6) $L.stuck();
         row = $L.gi(this.$.pmapsprites, j);
-        for (i = 1; $L.le(i, $L.gp(row, "count")); i = $L.add(i, 1)) {
+        for (let $t4 = (i = 1, 0); $L.le(i, $L.gp(row, "count")); i = $L.add(i, 1)) {
+          if (++$t4 > 5e6) $L.stuck();
           s = $L.gi(row, i);
           $L.mc(me, "returnasprite", s);
         }
@@ -3080,9 +3135,11 @@ const S1_129 = {
     showminimap(me) {
       let i, j, mmim, row, tile;
       mmim = $B.image($L.mul($L.gi(this.$.pmapsize, 1), $L.gi(this.$.pminimaptilesize, 1)), $L.mul($L.gi(this.$.pmapsize, 2), $L.gi(this.$.pminimaptilesize, 2)), 24);
-      for (j = 1; $L.le(j, $L.gp($L.gp(this.$.pmap, "terrain"), "count")); j = $L.add(j, 1)) {
+      for (let $t1 = (j = 1, 0); $L.le(j, $L.gp($L.gp(this.$.pmap, "terrain"), "count")); j = $L.add(j, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         row = $L.gpi(this.$.pmap, "terrain", j);
-        for (i = 1; $L.le(i, $L.gp(row, "count")); i = $L.add(i, 1)) {
+        for (let $t2 = (i = 1, 0); $L.le(i, $L.gp(row, "count")); i = $L.add(i, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           tile = $L.gi(row, i);
           $L.mc(me, "minimapdrawtile", mmim, tile);
         }
@@ -3135,8 +3192,10 @@ const S1_129 = {
       v = $L.gp($L.gp($L.gp($G.glob, "buildconfig"), "setup"), "visibility");
       tiles = $L.list([]);
       defogged = 0;
-      for (i = $L.neg(v); $L.le(i, v); i = $L.add(i, 1)) {
-        for (j = $L.neg(v); $L.le(j, v); j = $L.add(j, 1)) {
+      for (let $t1 = (i = $L.neg(v), 0); $L.le(i, v); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
+        for (let $t2 = (j = $L.neg(v), 0); $L.le(j, v); j = $L.add(j, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           if ($L.t($L.gt($L.add($B.abs(i), $B.abs(j)), v))) {
             continue;
           }
@@ -3357,8 +3416,10 @@ const S1_129 = {
     getall8neighbors(me, pos) {
       let i, j, l, nei, tile;
       nei = $L.list([]);
-      for (i = (-1); $L.le(i, 1); i = $L.add(i, 1)) {
-        for (j = (-1); $L.le(j, 1); j = $L.add(j, 1)) {
+      for (let $t1 = (i = (-1), 0); $L.le(i, 1); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
+        for (let $t2 = (j = (-1), 0); $L.le(j, 1); j = $L.add(j, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           if ($L.t($L.and($L.eq(i, 0), $L.eq(j, 0)))) {
             continue;
           }
@@ -3553,7 +3614,8 @@ const S1_129 = {
       $L.sp(startnode, "totalcost", $L.gp(startnode, "costtogoal"));
       $L.mc(qopen, "addprop", $L.gp(startnode, "pos"), startnode);
       $L.mc(qopensort, "add", startnode);
-      while ($L.t($L.gt($L.gp(qopen, "count"), 0))) {
+      for (let $t1 = 0; $L.t($L.gt($L.gp(qopen, "count"), 0)); $t1++) {
+        if ($t1 > 5e6) $L.stuck();
         node = $L.gi(qopensort, 1);
         $L.mc(qopensort, "deleteat", 1);
         $L.mc(qopen, "deleteprop", $L.gp(node, "pos"));
@@ -3566,8 +3628,8 @@ const S1_129 = {
             return $L.mc(me, "constructpath", node);
           }
         }
-        for (let $t1 = $L.mc(me, "getneighbors", $L.gp(node, "pos"), terrains, $s_vehicle), $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-          newnodepos = $L.gi($t1, $t3);
+        for (let $t2 = $L.mc(me, "getneighbors", $L.gp(node, "pos"), terrains, $s_vehicle), $t3 = $L.count($t2), $t4 = 1; $t4 <= $t3; $t4++) {
+          newnodepos = $L.gi($t2, $t4);
           newtile = $L.mc(me, "gettileat", newnodepos);
           if ($L.t($L.eq($L.gp(newtile, "occupant_type"), $s_vehicle))) {
             if ($L.t($L.eq($L.mc($L.gp(newtile, "occupant"), "vehiclestatus"), $s_idle))) {
@@ -3614,15 +3676,15 @@ const S1_129 = {
         if ($L.t($L.gt($R.the("milliseconds"), giveuptime))) {
           closest = 1000000;
           closestnode = undefined;
-          for (let $t4 = qopen, $t5 = $L.count($t4), $t6 = 1; $t6 <= $t5; $t6++) {
-            n = $L.gi($t4, $t6);
+          for (let $t5 = qopen, $t6 = $L.count($t5), $t7 = 1; $t7 <= $t6; $t7++) {
+            n = $L.gi($t5, $t7);
             if ($L.t($L.lt($L.gp(n, "costtogoal"), closest))) {
               closest = $L.gp(n, "costtogoal");
               closestnode = n;
             }
           }
-          for (let $t7 = qclosed, $t8 = $L.count($t7), $t9 = 1; $t9 <= $t8; $t9++) {
-            n = $L.gi($t7, $t9);
+          for (let $t8 = qclosed, $t9 = $L.count($t8), $t10 = 1; $t10 <= $t9; $t10++) {
+            n = $L.gi($t8, $t10);
             if ($L.t($L.lt($L.gp(n, "costtogoal"), closest))) {
               closest = $L.gp(n, "costtogoal");
               closestnode = n;
@@ -3652,7 +3714,8 @@ const S1_129 = {
     constructpath(me, node) {
       let path;
       path = $L.list([$L.gp(node, "pos")]);
-      while ($L.t($L.not($B.voidp($L.gp(node, "parent"))))) {
+      for (let $t1 = 0; $L.t($L.not($B.voidp($L.gp(node, "parent")))); $t1++) {
+        if ($t1 > 5e6) $L.stuck();
         $L.mc(path, "addat", 1, $L.gp($L.gp(node, "parent"), "pos"));
         node = $L.gp(node, "parent");
       }
@@ -3677,7 +3740,8 @@ const S1_129 = {
           continue;
         }
         pile = $L.gp($L.mc($L.gp(tile, "resource"), "checkcontents"), "bricks");
-        for (k = 1; $L.le(k, $L.gp(pile, "count")); k = $L.add(k, 1)) {
+        for (let $t4 = (k = 1, 0); $L.le(k, $L.gp(pile, "count")); k = $L.add(k, 1)) {
+          if (++$t4 > 5e6) $L.stuck();
           bricktype = $L.mc(pile, "getpropat", k);
           if ($L.t($B.voidp($L.gi(rec, bricktype)))) {
             continue;
@@ -3714,10 +3778,11 @@ const S1_129 = {
       }
       energy = $L.list([]);
       rec = $L.mc(recipe, "duplicate");
-      for (i = 1; $L.le(i, $L.gi(rec, $s_energy)); i = $L.add(i, 1)) {
+      for (let $t4 = (i = 1, 0); $L.le(i, $L.gi(rec, $s_energy)); i = $L.add(i, 1)) {
+        if (++$t4 > 5e6) $L.stuck();
         best = $L.list([undefined, (-1)]);
-        for (let $t4 = nei, $t5 = $L.count($t4), $t6 = 1; $t6 <= $t5; $t6++) {
-          resource = $L.gi($t4, $t6);
+        for (let $t5 = nei, $t6 = $L.count($t5), $t7 = 1; $t7 <= $t6; $t7++) {
+          resource = $L.gi($t5, $t7);
           brix = $L.mc(resource, "checkcontents");
           if ($L.t($L.gt($L.gp($L.gp(brix, "energy"), "count"), 0))) {
             if ($L.t($L.gt($L.gpi(brix, "energy", $L.gp($L.gp(brix, "energy"), "count")), $L.gi(best, 2)))) {
@@ -3734,14 +3799,15 @@ const S1_129 = {
         $L.mc(energy, "add", $L.gpi(unf, "energy", 1));
       }
       $L.mc(rec, "deleteprop", $s_energy);
-      for (let $t7 = nei, $t8 = $L.count($t7), $t9 = 1; $t9 <= $t8; $t9++) {
-        resource = $L.gi($t7, $t9);
+      for (let $t8 = nei, $t9 = $L.count($t8), $t10 = 1; $t10 <= $t9; $t10++) {
+        resource = $L.gi($t8, $t10);
         if ($L.t($L.gp(resource, "pdead"))) {
           continue;
         }
         exact = 1;
         brix = $L.mc(resource, "checkcontents");
-        for (i = 1; $L.le(i, $L.gp(brix, "count")); i = $L.add(i, 1)) {
+        for (let $t11 = (i = 1, 0); $L.le(i, $L.gp(brix, "count")); i = $L.add(i, 1)) {
+          if (++$t11 > 5e6) $L.stuck();
           kind = $L.mc(brix, "getpropat", i);
           if ($L.t($L.ne($L.gi(brix, kind), $L.gi(rec, kind)))) {
             exact = 0;
@@ -3749,7 +3815,8 @@ const S1_129 = {
           }
         }
         if ($L.t(exact)) {
-          for (i = 1; $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+          for (let $t12 = (i = 1, 0); $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+            if (++$t12 > 5e6) $L.stuck();
             kind = $L.mc(rec, "getpropat", i);
             if ($L.t($L.ne($L.gi(brix, kind), $L.gi(rec, kind)))) {
               exact = 0;
@@ -3764,8 +3831,8 @@ const S1_129 = {
       if ($L.t(exact)) {
         nei = $L.list([resource]);
       }
-      for (let $t10 = nei, $t11 = $L.count($t10), $t12 = 1; $t12 <= $t11; $t12++) {
-        resource = $L.gi($t10, $t12);
+      for (let $t13 = nei, $t14 = $L.count($t13), $t15 = 1; $t15 <= $t14; $t15++) {
+        resource = $L.gi($t13, $t15);
         if ($L.t($L.gp(resource, "pdead"))) {
           continue;
         }
@@ -3773,8 +3840,8 @@ const S1_129 = {
         rec = $L.gi(unf, $s_unfulfilled);
         new_energy = $L.gi(unf, $s_energy);
         if ($L.t($L.not($B.voidp(new_energy)))) {
-          for (let $t13 = new_energy, $t14 = $L.count($t13), $t15 = 1; $t15 <= $t14; $t15++) {
-            e = $L.gi($t13, $t15);
+          for (let $t16 = new_energy, $t17 = $L.count($t16), $t18 = 1; $t18 <= $t17; $t18++) {
+            e = $L.gi($t16, $t18);
             $L.mc(energy, "add", e);
           }
         }
@@ -3838,14 +3905,17 @@ const S1_130 = {
       this.$.pinventory = $L.plist([]);
       this.$.ptotalnum = 0;
       uniqueplansonmap = $L.mc($L.gp($L.gp($G.glob, "map_display"), "pplantypes"), "duplicate");
-      for (i = 30; $L.le(i, 39); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 30, 0); $L.le(i, 39); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.mc($B.sprite(i), "setplan", undefined, undefined);
       }
-      for (i = 1; $L.le(i, $L.gp($L.gp($L.gp($L.gp($G.glob, "map_display"), "pmap"), "inventory"), "count")); i = $L.add(i, 1)) {
+      for (let $t2 = (i = 1, 0); $L.le(i, $L.gp($L.gp($L.gp($L.gp($G.glob, "map_display"), "pmap"), "inventory"), "count")); i = $L.add(i, 1)) {
+        if (++$t2 > 5e6) $L.stuck();
         ctype = $L.mc($L.gp($L.gp($L.gp($G.glob, "map_display"), "pmap"), "inventory"), "getpropat", i);
         cnum = $L.gpi($L.gp($L.gp($G.glob, "map_display"), "pmap"), "inventory", i);
         pplan = undefined;
-        for (c = 1; $L.le(c, $L.gp($L.gp($G.glob, "buildconfig"), "count")); c = $L.add(c, 1)) {
+        for (let $t3 = (c = 1, 0); $L.le(c, $L.gp($L.gp($G.glob, "buildconfig"), "count")); c = $L.add(c, 1)) {
+          if (++$t3 > 5e6) $L.stuck();
           class_ = $L.mc($L.gp($G.glob, "buildconfig"), "getpropat", c);
           if ($L.t($L.not($B.voidp($L.gi($L.gpi($G.glob, "buildconfig", class_), ctype))))) {
             pplan = $L.list([class_, ctype]);
@@ -3857,8 +3927,8 @@ const S1_130 = {
         }
       }
       this.$.ptotalnum = $L.gp(this.$.pinventory, "count");
-      for (let $t1 = uniqueplansonmap, $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-        c = $L.gi($t1, $t3);
+      for (let $t4 = uniqueplansonmap, $t5 = $L.count($t4), $t6 = 1; $t6 <= $t5; $t6++) {
+        c = $L.gi($t4, $t6);
         if ($L.t($B.voidp($L.gi(this.$.pinventory, $B.symbol(c))))) {
           this.$.ptotalnum = $L.add(this.$.ptotalnum, 1);
         }
@@ -3901,12 +3971,14 @@ const S1_130 = {
         $L.sp($B.member($L.cats("plan counter", $B.string($L.sub(10, n)))), "text", $B.string($L.gp(i, "num")));
         n = $L.add(n, 1);
       }
-      for (n = n; $L.le(n, $L.sub(this.$.ptotalnum, 1)); n = $L.add(n, 1)) {
+      for (let $t4 = (n = n, 0); $L.le(n, $L.sub(this.$.ptotalnum, 1)); n = $L.add(n, 1)) {
+        if (++$t4 > 5e6) $L.stuck();
         $L.sp($B.sprite($L.sub(39, n)), "visible", 1);
         $L.sp($B.sprite($L.sub(39, n)), "member", "icon.plan.unknown");
         $L.sp($B.sprite($L.sub(49, n)), "visible", 0);
       }
-      for (n = this.$.ptotalnum; $L.le(n, 9); n = $L.add(n, 1)) {
+      for (let $t5 = (n = this.$.ptotalnum, 0); $L.le(n, 9); n = $L.add(n, 1)) {
+        if (++$t5 > 5e6) $L.stuck();
         $L.sp($B.sprite($L.sub(39, n)), "visible", 0);
         $L.sp($B.sprite($L.sub(49, n)), "visible", 0);
       }
@@ -3942,7 +4014,8 @@ const S1_131 = {
     readworlds(me) {
       let i, j, l, levelnum, opens, worldnum;
       this.$.pworlds = $L.list([]);
-      for (i = 1; $L.le(i, $L.chunkCount($L.gp($B.member("worlds"), "text"), "line")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.chunkCount($L.gp($B.member("worlds"), "text"), "line")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         l = $L.chunk($L.gp($B.member("worlds"), "text"), "line", i, 0);
         worldnum = $L.chunk(l, "word", 1, 0);
         if ($L.t($L.or($L.eq(worldnum, "--"), $L.eq(worldnum, "")))) {
@@ -3959,7 +4032,8 @@ const S1_131 = {
         if ($L.t($L.eq(opens, ""))) {
           continue;
         }
-        for (j = 1; $L.le(j, $L.chunkCount(opens, "item")); j = $L.add(j, 1)) {
+        for (let $t2 = (j = 1, 0); $L.le(j, $L.chunkCount(opens, "item")); j = $L.add(j, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           $L.mc($L.gp($L.gi($L.gi(this.$.pworlds, worldnum), levelnum), "opens"), "add", $B.integer($L.chunk(opens, "item", j, 0)));
         }
       }
@@ -4022,7 +4096,8 @@ const S1_131 = {
       if ($L.t($B.voidp(t))) {
         return;
       }
-      for (i = 1; $L.le(i, $L.chunkCount(t, "line")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.chunkCount(t, "line")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         l = $L.chunk(t, "line", i, 0);
         worldnum = $L.chunk(l, "word", 1, 0);
         if ($L.t($L.or($L.eq(worldnum, "--"), $L.eq(worldnum, "")))) {
@@ -4037,9 +4112,11 @@ const S1_131 = {
     writeprefs(me) {
       let level, levelnum, t, world, worldnum;
       t = "";
-      for (worldnum = 1; $L.le(worldnum, $L.gp(this.$.pworlds, "count")); worldnum = $L.add(worldnum, 1)) {
+      for (let $t1 = (worldnum = 1, 0); $L.le(worldnum, $L.gp(this.$.pworlds, "count")); worldnum = $L.add(worldnum, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         world = $L.gi(this.$.pworlds, worldnum);
-        for (levelnum = 1; $L.le(levelnum, $L.gp(world, "count")); levelnum = $L.add(levelnum, 1)) {
+        for (let $t2 = (levelnum = 1, 0); $L.le(levelnum, $L.gp(world, "count")); levelnum = $L.add(levelnum, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           level = $L.gi(world, levelnum);
           t = $L.cat($L.cats($L.cats($L.cat(t, worldnum), levelnum), $L.gp(level, "state")), "\r");
         }
@@ -4138,7 +4215,8 @@ const S1_137 = {
       if ($L.t($B.voidp($L.gi(this.$.pinfo, $s_energy)))) {
         $L.si(this.$.pinfo, $s_energy, $L.list([]));
         if ($L.t($L.not($L.mc(this.$.pchild, "resourcep")))) {
-          for (e = 1; $L.le(e, $L.gpi($L.gp(this.$.pchild, "pbuild"), "recipe", $s_energy)); e = $L.add(e, 1)) {
+          for (let $t1 = (e = 1, 0); $L.le(e, $L.gpi($L.gp(this.$.pchild, "pbuild"), "recipe", $s_energy)); e = $L.add(e, 1)) {
+            if (++$t1 > 5e6) $L.stuck();
             $L.mc($L.gi(this.$.pinfo, $s_energy), "add", 100);
           }
         }
@@ -4374,7 +4452,8 @@ const S1_137 = {
     spritelabels(me) {
       let i, sl;
       sl = $L.list([]);
-      for (i = 1; $L.le(i, $L.gp(this.$.psprites, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.psprites, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.mc(sl, "add", $L.mc(this.$.psprites, "getpropat", i));
       }
       return sl;
@@ -4395,7 +4474,8 @@ const S1_137 = {
       }
       recipe = $L.cat($L.cat(forwhat, " is made of"), "\r");
       rec = $L.gp(what, "recipe");
-      for (i = 1; $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         ingredient = $L.mc(rec, "getpropat", i);
         num = $L.gi(rec, i);
         recipe = $L.cats($L.cat(recipe, num), ingredient);
@@ -4422,7 +4502,8 @@ const S1_137 = {
     checkingredients(me, recipe) {
       let i, ingredient, needmore, num;
       needmore = $L.list([]);
-      for (i = 1; $L.le(i, $L.gp(recipe, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(recipe, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         ingredient = $L.mc(recipe, "getpropat", i);
         num = $L.gi(recipe, i);
         if ($L.t($L.gt(num, $L.gpi($G.glob, "inventory", ingredient)))) {
@@ -4452,7 +4533,8 @@ const S1_137 = {
     },
     useingredients(me, recipe) {
       let i, ingredient, num;
-      for (i = 1; $L.le(i, $L.gp(recipe, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(recipe, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         ingredient = $L.mc(recipe, "getpropat", i);
         num = $L.gi(recipe, i);
         $L.spi($G.glob, "inventory", ingredient, $L.sub($L.gpi($G.glob, "inventory", ingredient), num));
@@ -4532,8 +4614,10 @@ const S1_137 = {
         return undefined;
       }
       f = 0;
-      for (i = (-1); $L.le(i, 1); i = $L.add(i, 1)) {
-        for (j = (-1); $L.le(j, 1); j = $L.add(j, 1)) {
+      for (let $t1 = (i = (-1), 0); $L.le(i, 1); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
+        for (let $t2 = (j = (-1), 0); $L.le(j, 1); j = $L.add(j, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           if ($L.t($L.and($L.eq(i, 0), $L.eq(j, 0)))) {
             continue;
           }
@@ -4729,8 +4813,10 @@ const S1_137 = {
       if ($L.t($B.voidp(r))) {
         return;
       }
-      for (i = $L.neg(r); $L.le(i, r); i = $L.add(i, 1)) {
-        for (j = $L.neg(r); $L.le(j, r); j = $L.add(j, 1)) {
+      for (let $t1 = (i = $L.neg(r), 0); $L.le(i, r); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
+        for (let $t2 = (j = $L.neg(r), 0); $L.le(j, r); j = $L.add(j, 1)) {
+          if (++$t2 > 5e6) $L.stuck();
           if ($L.t($L.gt($L.add($B.abs(i), $B.abs(j)), r))) {
             continue;
           }
@@ -4864,7 +4950,8 @@ const S1_138 = {
       this.$.pcontents = $L.plist([$s_bricks, $L.mc(contents, "duplicate")]);
       if ($L.t($B.voidp(energy))) {
         penergy = $L.list([]);
-        for (i = 1; $L.le(i, $L.gpi(this.$.pcontents, "bricks", $s_energy)); i = $L.add(i, 1)) {
+        for (let $t1 = (i = 1, 0); $L.le(i, $L.gpi(this.$.pcontents, "bricks", $s_energy)); i = $L.add(i, 1)) {
+          if (++$t1 > 5e6) $L.stuck();
           $L.mc(penergy, "add", 100);
         }
       } else {
@@ -4927,7 +5014,8 @@ const S1_138 = {
     setuppilesprites(me) {
       let b, beste, cont, i, num, threshold, which;
       cont = $L.list([]);
-      for (i = $L.gp($L.gp(this.$.pcontents, "bricks"), "count"); $L.ge(i, 1); i = $L.sub(i, 1)) {
+      for (let $t1 = (i = $L.gp($L.gp(this.$.pcontents, "bricks"), "count"), 0); $L.ge(i, 1); i = $L.sub(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         if ($L.t($L.le($L.gpi(this.$.pcontents, "bricks", i), 0))) {
           $L.mc($L.gp(this.$.pcontents, "bricks"), "deleteat", i);
           continue;
@@ -4935,7 +5023,8 @@ const S1_138 = {
         $L.mc(cont, "add", $L.list([$L.neg($L.gpi(this.$.pcontents, "bricks", i)), $L.mc($L.gp(this.$.pcontents, "bricks"), "getpropat", i)]));
       }
       $R.call(this, S1_138, "sort", cont);
-      for (i = 1; $L.le(i, 4); i = $L.add(i, 1)) {
+      for (let $t2 = (i = 1, 0); $L.le(i, 4); i = $L.add(i, 1)) {
+        if (++$t2 > 5e6) $L.stuck();
         which = "main";
         if ($L.t($L.gt(i, 1))) {
           which = $L.cat(which, i);
@@ -4949,8 +5038,8 @@ const S1_138 = {
         $L.mc(cont, "deleteat", 1);
         if ($L.t($L.mc($L.gp(this.$.ppilesetup, "ordinary"), "getone", $L.gi(b, 2)))) {
           num = 1;
-          for (let $t1 = $L.gp(this.$.ppilesetup, "countversions"), $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-            threshold = $L.gi($t1, $t3);
+          for (let $t3 = $L.gp(this.$.ppilesetup, "countversions"), $t4 = $L.count($t3), $t5 = 1; $t5 <= $t4; $t5++) {
+            threshold = $L.gi($t3, $t5);
             if ($L.t($L.ge($L.neg($L.gi(b, 1)), $L.gi(threshold, 1)))) {
               num = $L.gi(threshold, 2);
             }
@@ -5020,7 +5109,8 @@ const S1_138 = {
     useresourcesreturnunfulfilled(me, irecipe) {
       let bricktype, i, recipe, tenergy;
       recipe = $L.mc(irecipe, "duplicate");
-      for (i = $L.gp(recipe, "count"); $L.ge(i, 1); i = $L.sub(i, 1)) {
+      for (let $t1 = (i = $L.gp(recipe, "count"), 0); $L.ge(i, 1); i = $L.sub(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         bricktype = $L.mc(recipe, "getpropat", i);
         if ($L.t($L.ge($L.gi(recipe, bricktype), $L.gpi(this.$.pcontents, "bricks", bricktype)))) {
           $L.si(recipe, bricktype, $L.sub($L.gi(recipe, bricktype), $L.gpi(this.$.pcontents, "bricks", bricktype)));
@@ -5054,7 +5144,8 @@ const S1_138 = {
     takeenergy(me, num) {
       let e, i, tenergy;
       tenergy = $L.list([]);
-      for (i = 1; $L.le(i, num); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, num); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         e = $L.gpi(this.$.pcontents, "energy", $L.gp($L.gp(this.$.pcontents, "energy"), "count"));
         $L.mc($L.gp(this.$.pcontents, "energy"), "deleteat", $L.gp($L.gp(this.$.pcontents, "energy"), "count"));
         $L.mc(tenergy, "add", e);
@@ -5065,7 +5156,8 @@ const S1_138 = {
       let bricks, energy, got, i;
       bricks = $L.plist([]);
       energy = $L.list([]);
-      for (i = 1; $L.le(i, num); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, num); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         got = $L.mc(me, "take1brick");
         if ($L.t($B.voidp(got))) {
           break;
@@ -5087,7 +5179,8 @@ const S1_138 = {
       if ($L.t($L.eq($L.gp($L.gp(this.$.pcontents, "bricks"), "count"), 0))) {
         return undefined;
       }
-      for (i = 1; $L.le(i, $L.gp($L.gp(this.$.pcontents, "bricks"), "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp(this.$.pcontents, "bricks"), "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         if ($L.t($L.lt($L.gpi(this.$.pcontents, "bricks", i), least))) {
           least = $L.gpi(this.$.pcontents, "bricks", i);
           kind = $L.mc($L.gp(this.$.pcontents, "bricks"), "getpropat", i);
@@ -5107,12 +5200,14 @@ const S1_138 = {
     },
     givebricks(me, stuff) {
       let i, kind, num;
-      for (i = 1; $L.le(i, $L.gp($L.gp(stuff, "bricks"), "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp(stuff, "bricks"), "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         kind = $L.mc($L.gp(stuff, "bricks"), "getpropat", i);
         num = $L.gpi(stuff, "bricks", i);
         $L.spi(this.$.pcontents, "bricks", kind, $L.add($L.gpi(this.$.pcontents, "bricks", kind), num));
       }
-      for (i = 1; $L.le(i, $L.gp($L.gp(stuff, "energy"), "count")); i = $L.add(i, 1)) {
+      for (let $t2 = (i = 1, 0); $L.le(i, $L.gp($L.gp(stuff, "energy"), "count")); i = $L.add(i, 1)) {
+        if (++$t2 > 5e6) $L.stuck();
         $L.mc($L.gp(this.$.pcontents, "energy"), "add", $L.gpi(stuff, "energy", i));
       }
       $L.mc(me, "setuppilesprites");
@@ -5125,7 +5220,8 @@ const S1_138 = {
     textcontents(me) {
       let i, t;
       t = "";
-      for (i = 1; $L.le(i, $L.gp($L.gp(this.$.pcontents, "bricks"), "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp(this.$.pcontents, "bricks"), "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         t = $L.cat(t, $L.mc($L.gp(this.$.pcontents, "bricks"), "getpropat", i));
         t = $L.cat(t, ": ");
         t = $L.cat(t, $L.gpi(this.$.pcontents, "bricks", i));
@@ -5157,7 +5253,8 @@ const S1_139 = {
       this.$.ancestor = $R.call(this, S1_139, "new", $B.script("object.generic parent"), tile, info, me);
       $L.spi(me, "pclass", 1, $s_plan);
       ctype = $L.gi(contents, 1);
-      for (c = 1; $L.le(c, $L.gp($L.gp($G.glob, "buildconfig"), "count")); c = $L.add(c, 1)) {
+      for (let $t1 = (c = 1, 0); $L.le(c, $L.gp($L.gp($G.glob, "buildconfig"), "count")); c = $L.add(c, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         class_ = $L.mc($L.gp($G.glob, "buildconfig"), "getpropat", c);
         if ($L.t($L.not($B.voidp($L.gi($L.gpi($G.glob, "buildconfig", class_), ctype))))) {
           this.$.pplan = $L.list([class_, ctype]);
@@ -5233,7 +5330,8 @@ const S1_140 = {
         this.$.pgoalname = "Anything";
       } else {
         ctype = $L.gi(contents, 1);
-        for (c = 1; $L.le(c, $L.gp($L.gp($G.glob, "buildconfig"), "count")); c = $L.add(c, 1)) {
+        for (let $t1 = (c = 1, 0); $L.le(c, $L.gp($L.gp($G.glob, "buildconfig"), "count")); c = $L.add(c, 1)) {
+          if (++$t1 > 5e6) $L.stuck();
           class_ = $L.mc($L.gp($G.glob, "buildconfig"), "getpropat", c);
           if ($L.t($L.not($B.voidp($L.gi($L.gpi($G.glob, "buildconfig", class_), ctype))))) {
             this.$.pgoal = $L.list([class_, ctype]);
@@ -5543,7 +5641,8 @@ const S1_145 = {
       }
       recipe = $L.cat($L.cat($L.cats("To build", forwhat), "--"), "\r");
       rec = $L.gp(what, "recipe");
-      for (i = 1; $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         ingredient = $L.mc(rec, "getpropat", i);
         num = $L.gi(rec, i);
         recipe = $L.cats($L.cat(recipe, num), ingredient);
@@ -5753,7 +5852,8 @@ const S1_153 = {
       let e, i, stuff;
       stuff = $L.mc(this.$.ancestor, "recycle");
       if ($L.t($L.gt($L.gp($L.gp(this.$.pcargo, "bricks"), "count"), 0))) {
-        for (i = 1; $L.le(i, $L.gp($L.gp(this.$.pcargo, "bricks"), "count")); i = $L.add(i, 1)) {
+        for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp(this.$.pcargo, "bricks"), "count")); i = $L.add(i, 1)) {
+          if (++$t1 > 5e6) $L.stuck();
           if ($L.t($L.eq($L.mc($L.gp(this.$.pcargo, "bricks"), "getpropat", i), $s_swamp))) {
             continue;
           }
@@ -5770,8 +5870,8 @@ const S1_153 = {
         $L.si(stuff, $s_energy, $L.list([]));
       }
       if ($L.t($L.not($B.voidp($L.gi(this.$.pcargo, $s_energy))))) {
-        for (let $t1 = $L.gi(this.$.pcargo, $s_energy), $t2 = $L.count($t1), $t3 = 1; $t3 <= $t2; $t3++) {
-          e = $L.gi($t1, $t3);
+        for (let $t2 = $L.gi(this.$.pcargo, $s_energy), $t3 = $L.count($t2), $t4 = 1; $t4 <= $t3; $t4++) {
+          e = $L.gi($t2, $t4);
           $L.mc($L.gp(stuff, "energy"), "add", e);
         }
       }
@@ -5941,7 +6041,8 @@ const S1_153 = {
       }
       recipe = $L.cat($L.cat($L.cats("To build", forwhat), "--"), "\r");
       rec = $L.mc($L.gp(what, "recipe"), "duplicate");
-      for (i = 1; $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(rec, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         ingredient = $L.mc(rec, "getpropat", i);
         num = $L.gi(rec, i);
         recipe = $L.cats($L.cat(recipe, num), ingredient);
@@ -7223,7 +7324,8 @@ const S1_177 = {
     disassemble(me) {
       let i;
       if ($L.t($L.not($B.voidp($L.gpi(me, "pinfo", $s_energy))))) {
-        for (i = 1; $L.le(i, $L.gp($L.gpi(me, "pinfo", $s_energy), "count")); i = $L.add(i, 1)) {
+        for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gpi(me, "pinfo", $s_energy), "count")); i = $L.add(i, 1)) {
+          if (++$t1 > 5e6) $L.stuck();
           $L.spi($L.gp(me, "pinfo"), "energy", i, 100);
         }
         $L.mc(this.$.ancestor, "disassemble");
@@ -7661,7 +7763,8 @@ const S3_1 = {
       numberofchannels = $L.gp($L.gi($G.glob, $s_sfxchannels), "count");
       mylist = $L.plist([]);
       mysoundchannel = 0;
-      for (i = 1; $L.le(i, numberofchannels); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, numberofchannels); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         if ($L.t($L.eq($R.call(this, S3_1, "soundbusy", $R.call(this, S3_1, "getat", $L.gi($G.glob, $s_sfxchannels), i)), 0))) {
           mysoundchannel = i;
           break;
@@ -7697,7 +7800,8 @@ const S3_1 = {
       $L.si($G.glob, $s_musicstarttime, $R.the("milliseconds"));
       if ($L.t($L.eq(whichsound, "music_game"))) {
         myrandom = $L.gi($G.glob, $s_lasttrack);
-        while ($L.t($L.eq(myrandom, $L.gi($G.glob, $s_lasttrack)))) {
+        for (let $t1 = 0; $L.t($L.eq(myrandom, $L.gi($G.glob, $s_lasttrack))); $t1++) {
+          if ($t1 > 5e6) $L.stuck();
           myrandom = $B.random($L.gp($L.gi($G.glob, $s_songs), "count"));
         }
         whichsound = $L.cat($L.cat(whichsound, "_"), $L.gi($L.gi($G.glob, $s_songs), myrandom));
@@ -7823,7 +7927,8 @@ const S3_1 = {
       } else {
         numberofloops = 4;
       }
-      for (j = 1; $L.le(j, numberofloops); j = $L.add(j, 1)) {
+      for (let $t1 = (j = 1, 0); $L.le(j, numberofloops); j = $L.add(j, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.mc(mylist1, "add", $L.plist([$s_member, mysound1, $s_starttime, 0, $s_endtime, lowestduration, $s_preloadtime, 1500]));
         if ($L.t($L.ne($L.gp(mysound2, "name"), ""))) {
           $L.mc(mylist2, "add", $L.plist([$s_member, mysound2, $s_starttime, 0, $s_endtime, lowestduration, $s_preloadtime, 1500]));
@@ -7898,7 +8003,8 @@ const S3_1 = {
     sndgetlinecount(mymember) {
       let i, mylinecount;
       mylinecount = 0;
-      for (i = 1; $L.le(i, $L.gp($L.gp($B.member(mymember), "line"), "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp($L.gp($B.member(mymember), "line"), "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         if ($L.t($L.ne($L.chunk($L.gp($B.member(mymember), "text"), "line", i, 0), ""))) {
           mylinecount = $L.add(mylinecount, 1);
         }
@@ -7913,7 +8019,8 @@ const S3_1 = {
       $L.mc($B.sound($L.gi($G.glob, $s_musicchannel1)), "stop");
       $L.mc($B.sound($L.gi($G.glob, $s_musicchannel2)), "stop");
       numberofchannels = $L.gp($L.gi($G.glob, $s_sfxchannels), "count");
-      for (i = 1; $L.le(i, numberofchannels); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, numberofchannels); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         whichchannel = $R.call(this, S3_1, "getat", $L.gi($G.glob, $s_sfxchannels), i);
         $L.mc($B.sound(whichchannel), "setplaylist", $L.plist([]));
         $L.mc($B.sound(whichchannel), "stop");
@@ -8063,11 +8170,13 @@ const S3_6 = {
       $L.si($G.glob, $s_soundloadcurrentlevel, $L.add($L.gi($G.glob, $s_soundloadcurrentlevel), 1));
       mylinecount = $R.call(this, S3_6, "sndgetlinecount", $B.member($L.cat("sndload_level_", $L.gi($G.glob, $s_soundloadcurrentlevel))));
       x = 1;
-      while ($L.t($L.le(x, $L.add(mylinecount, 1)))) {
+      for (let $t1 = 0; $L.t($L.le(x, $L.add(mylinecount, 1))); $t1++) {
+        if ($t1 > 5e6) $L.stuck();
         soundtoload = $L.gpi($B.member($L.cat("sndload_level_", $L.gi($G.glob, $s_soundloadcurrentlevel))), "line", x);
         $R.put(soundtoload);
         mynetid = $B.preloadnetthing($L.cat($L.gi($G.glob, $s_soundpath), soundtoload));
-        while ($L.t($L.not($B.netdone(mynetid)))) {
+        for (let $t2 = 0; $L.t($L.not($B.netdone(mynetid))); $t2++) {
+          if ($t2 > 5e6) $L.stuck();
           if ($L.t($L.ne($B.neterror(mynetid), "OK"))) {
             $B.beep();
             return;
@@ -8092,11 +8201,13 @@ const S3_6 = {
       let whichcast;
       if ($L.t($L.eq($L.gp($R.the("environment"), "runmode"), "Author"))) {
         $L.si($G.glob, $s_soundnetsource, 1);
-        while ($L.t($L.le($L.gi($G.glob, $s_soundnetsource), $L.gp($L.gi($G.glob, $s_soundcasts), "count")))) {
+        for (let $t1 = 0; $L.t($L.le($L.gi($G.glob, $s_soundnetsource), $L.gp($L.gi($G.glob, $s_soundcasts), "count"))); $t1++) {
+          if ($t1 > 5e6) $L.stuck();
           whichcast = $L.cat($L.cat("sound_level_", $L.gi($G.glob, $s_soundnetsource)), ".cst");
           $R.call(this, S3_6, "sndmessage", $L.cat("Loading...", whichcast));
           $R.call(this, S3_6, "sndloadnetsource", whichcast);
-          while ($L.t($L.not($B.netdone($L.gi($G.glob, $s_soundnetid))))) {
+          for (let $t2 = 0; $L.t($L.not($B.netdone($L.gi($G.glob, $s_soundnetid)))); $t2++) {
+            if ($t2 > 5e6) $L.stuck();
 
           }
           $L.sp($B.castlib($L.cat("sound_level_", $L.gi($G.glob, $s_soundnetsource))), "filename", $L.cat($L.gi($G.glob, $s_soundpath), whichcast));
@@ -8109,11 +8220,13 @@ const S3_6 = {
       let whichcast;
       if ($L.t($L.eq($L.gp($R.the("environment"), "runmode"), "Author"))) {
         $L.si($G.glob, $s_soundnetsource, 1);
-        while ($L.t($L.le($L.gi($G.glob, $s_soundnetsource), $L.gp($L.gi($G.glob, $s_soundcasts), "count")))) {
+        for (let $t1 = 0; $L.t($L.le($L.gi($G.glob, $s_soundnetsource), $L.gp($L.gi($G.glob, $s_soundcasts), "count"))); $t1++) {
+          if ($t1 > 5e6) $L.stuck();
           whichcast = $L.cat($R.call(this, S3_6, "getat", $L.gi($G.glob, $s_soundcasts), $L.gi($G.glob, $s_soundnetsource)), $L.gi($G.glob, $s_soundnetsourcepostfix));
           $R.call(this, S3_6, "sndmessage", $L.cat("Loading...", whichcast));
           $R.call(this, S3_6, "sndloadnetsource", whichcast);
-          while ($L.t($L.not($B.netdone($L.gi($G.glob, $s_soundnetid))))) {
+          for (let $t2 = 0; $L.t($L.not($B.netdone($L.gi($G.glob, $s_soundnetid)))); $t2++) {
+            if ($t2 > 5e6) $L.stuck();
 
           }
           $L.sp($B.castlib($L.cat("sound_level_", $L.gi($G.glob, $s_soundnetsource))), "filename", $L.cat($L.gi($G.glob, $s_soundpath), whichcast));
@@ -8132,7 +8245,8 @@ const S4_269 = {
   handlers: {
     bliblob() {
       let i, m;
-      for (i = 389; $L.le(i, 423); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 389, 0); $L.le(i, 423); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         m = $B.member(i, "terrain and models");
         if ($L.t($L.ne($L.gp(m, "type"), $s_bitmap))) {
           continue;
@@ -8150,7 +8264,8 @@ const S4_384 = {
   handlers: {
     adjustgators() {
       let i, m;
-      for (i = 525; $L.le(i, 544); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 525, 0); $L.le(i, 544); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         m = $B.member(i, "terrain and models");
         $R.put($L.gp($L.gp(m, "member"), "name"));
         $L.sp(m, "regpoint", $L.add($L.gp(m, "regpoint"), $B.point(0, (-5))));
@@ -8166,7 +8281,8 @@ const S4_593 = {
   handlers: {
     movetrex() {
       let i, m;
-      for (i = 597; $L.le(i, 648); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 597, 0); $L.le(i, 648); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         m = $B.member(i, "terrain and models");
         $L.sp(m, "regpoint", $L.add($L.gp(m, "regpoint"), $B.point(0, 4)));
       }
@@ -8185,7 +8301,8 @@ const S2_1 = {
       n = $L.gp(me, "spritenum");
       this.$.ss = $L.plist([]);
       this.$.sloc = $L.plist([]);
-      for (i = 1; $L.le(i, $L.gp(l, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(l, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.si(this.$.ss, $L.gi(l, i), $B.sprite(n));
         n = $L.add(n, 1);
         $L.si(this.$.sloc, $L.gi(l, i), $L.gp($L.gi(this.$.ss, $L.gi(l, i)), "loc"));
@@ -8207,7 +8324,8 @@ const S2_1 = {
       }
       $L.sp($L.gp(this.$.ss, "front"), "member", $L.cat("front_class", s));
       $L.sp($L.gp(this.$.ss, "label"), "member", $L.cat("label_class", s));
-      for (i = 1; $L.le(i, 4); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, 4); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         l = $B.symbol($L.cat("class", i));
         $L.sp($L.gi(this.$.ss, l), "loc", $L.add($L.gi(this.$.sloc, l), $L.mul($B.point(1000, 1000), $L.ne(i, s))));
       }
@@ -8551,7 +8669,8 @@ const S2_2 = {
       let i;
       this.$.ss = $L.list([]);
       this.$.sloc = $L.list([]);
-      for (i = 0; $L.le(i, 7); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 0, 0); $L.le(i, 7); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $L.si(this.$.ss, $L.add(i, 1), $B.sprite($L.add($L.gp(me, "spritenum"), i)));
         $L.si(this.$.sloc, $L.add(i, 1), $L.gp($L.gi(this.$.ss, $L.add(i, 1)), "loc"));
       }
@@ -8570,7 +8689,8 @@ const S2_2 = {
     },
     show(me) {
       let i, s;
-      for (i = 1; $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, $L.gp(this.$.ss, "count")); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         s = $L.gi(this.$.ss, i);
         $L.sp(s, "loc", $L.gi(this.$.sloc, i));
       }
@@ -8847,17 +8967,20 @@ const S2_6 = {
       casts = $L.list([]);
       textlist = $L.list([]);
       numlibs = $R.the("number of castlibs");
-      for (i = 1; $L.le(i, numlibs); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, numlibs); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $R.call(this, S2_6, "add", casts, $L.gp($B.castlib(i), "name"));
       }
-      for (n = 1; $L.le(n, $R.call(this, S2_6, "count", casts)); n = $L.add(n, 1)) {
+      for (let $t2 = (n = 1, 0); $L.le(n, $R.call(this, S2_6, "count", casts)); n = $L.add(n, 1)) {
+        if (++$t2 > 5e6) $L.stuck();
         casttocheck = $R.call(this, S2_6, "getat", casts, n);
         nummems = $R.theNumberOf("castmembers", $B.castlib(casttocheck));
-        for (x = 1; $L.le(x, nummems); x = $L.add(x, 1)) {
+        for (let $t3 = (x = 1, 0); $L.le(x, nummems); x = $L.add(x, 1)) {
+          if (++$t3 > 5e6) $L.stuck();
           m = $B.member(x, n);
           {
-            const $t1 = $L.gp(m, "type");
-            if ($L.eqb($t1, $s_text) || $L.eqb($t1, $s_field)) {
+            const $t4 = $L.gp(m, "type");
+            if ($L.eqb($t4, $s_text) || $L.eqb($t4, $s_field)) {
               if ($L.t($L.eq($L.gp(m, "name"), ""))) {
                 $R.call(this, S2_6, "add", textlist, m);
               } else {
@@ -8880,17 +9003,20 @@ const S2_6 = {
       casts = $L.list([]);
       textlist = $L.list([]);
       numlibs = $R.the("number of castlibs");
-      for (i = 1; $L.le(i, numlibs); i = $L.add(i, 1)) {
+      for (let $t1 = (i = 1, 0); $L.le(i, numlibs); i = $L.add(i, 1)) {
+        if (++$t1 > 5e6) $L.stuck();
         $R.call(this, S2_6, "add", casts, $L.gp($B.castlib(i), "name"));
       }
-      for (n = 1; $L.le(n, $R.call(this, S2_6, "count", casts)); n = $L.add(n, 1)) {
+      for (let $t2 = (n = 1, 0); $L.le(n, $R.call(this, S2_6, "count", casts)); n = $L.add(n, 1)) {
+        if (++$t2 > 5e6) $L.stuck();
         casttocheck = $R.call(this, S2_6, "getat", casts, n);
         nummems = $R.theNumberOf("castmembers", $B.castlib(casttocheck));
-        for (x = 1; $L.le(x, nummems); x = $L.add(x, 1)) {
+        for (let $t3 = (x = 1, 0); $L.le(x, nummems); x = $L.add(x, 1)) {
+          if (++$t3 > 5e6) $L.stuck();
           m = $B.member(x, n);
           {
-            const $t1 = $L.gp(m, "type");
-            if ($L.eqb($t1, $s_text) || $L.eqb($t1, $s_field)) {
+            const $t4 = $L.gp(m, "type");
+            if ($L.eqb($t4, $s_text) || $L.eqb($t4, $s_field)) {
               if ($L.t($L.eq($L.gp(m, "name"), ""))) {
                 $R.call(this, S2_6, "add", textlist, m);
               } else {

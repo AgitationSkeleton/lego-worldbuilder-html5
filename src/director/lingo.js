@@ -93,6 +93,7 @@ export class LInstance {
 
 // Errors the original would have shown as a script error dialog.
 export class LingoError extends Error {}
+export function stuck() { throw new LingoError("repeat while: the loop never ends"); }
 export let onWarning = (msg) => console.warn('[lingo] ' + msg);
 export function setWarningHandler(fn) { onWarning = fn; }
 
@@ -290,7 +291,25 @@ function cmp(a, b) {
     return x < y ? LESS : x === y ? EQUAL : GREATER;
   }
   if (a instanceof LSymbol || b instanceof LSymbol) return a === b ? EQUAL : ERR;
+  // Lists compare by their values, in order: a sorted list of property lists is kept in
+  // the order of their first values.
+  const va = listValues(a), vb = listValues(b);
+  if (va && vb) {
+    const n = Math.min(va.length, vb.length);
+    for (let i = 0; i < n; i++) {
+      const c = cmp(va[i], vb[i]);
+      if (c & (LESS | GREATER | ERR)) return c & (LESS | GREATER) ? c : ERR;
+    }
+    return va.length < vb.length ? LESS : va.length > vb.length ? GREATER : EQUAL;
+  }
   return ERR;
+}
+function listValues(x) {
+  if (x instanceof LList) return x.a;
+  if (x instanceof LPropList) return x.v;
+  if (x instanceof LPoint) return [x.h, x.v];
+  if (x instanceof LRect) return [x.l, x.t, x.r, x.b];
+  return null;
 }
 // Equality, for =, case and list searches.
 export function eqv(a, b) {
@@ -495,6 +514,7 @@ const listMethods = {
   append: (l, v) => { l.a.push(v); return undefined; },
   addat: (l, i, v) => {
     i = toInt(i);
+    if (i > l.a.length + 1000000) throw new LingoError('list index ' + i + ' is far past the end of the list');
     while (l.a.length < i - 1) l.a.push(0);
     l.a.splice(i - 1, 0, v);
   },
@@ -601,6 +621,7 @@ const rectMethods = {
 function listSet(l, i, v) {
   i = toInt(i);
   if (i < 1) { onWarning('list index ' + i); return; }
+  if (i > l.a.length + 1000000) throw new LingoError('list index ' + i + ' is far past the end of the list');
   while (l.a.length < i - 1) l.a.push(0);
   l.a[i - 1] = v;
 }
@@ -735,11 +756,10 @@ export function gi(o, i) {
     return o.a[toInt(i) - 1];
   }
   if (o instanceof LPropList) {
-    if (i instanceof LSymbol || typeof i === 'string') {
-      const k = o.find(i);
-      return k < 0 ? undefined : o.v[k];
-    }
-    return o.v[toInt(i) - 1];
+    // a number is a position; anything else (a symbol, a string, a point...) is a key
+    if (typeof i === 'number' || i instanceof LFloat) return o.v[toInt(i) - 1];
+    const k = o.find(i);
+    return k < 0 ? undefined : o.v[k];
   }
   if (o instanceof LPoint) return toInt(i) === 1 ? o.h : toInt(i) === 2 ? o.v : undefined;
   if (o instanceof LRect) return [o.l, o.t, o.r, o.b][toInt(i) - 1];
@@ -758,8 +778,8 @@ export function gi(o, i) {
 export function si(o, i, v) {
   if (o instanceof LList) { listSet(o, i, v); return; }
   if (o instanceof LPropList) {
-    if (i instanceof LSymbol || typeof i === 'string') { plistSet(o, i, v); return; }
-    o.v[toInt(i) - 1] = v;
+    if (typeof i === 'number' || i instanceof LFloat) { o.v[toInt(i) - 1] = v; return; }
+    plistSet(o, i, v);
     return;
   }
   if (o instanceof LPoint) { if (toInt(i) === 1) o.h = v; else o.v = v; return; }
