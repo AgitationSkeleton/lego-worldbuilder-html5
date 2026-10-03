@@ -93,6 +93,10 @@ the movies' embedded Arial and Arial Black are drawn with those typefaces.
 - **Network.** The movies checked for streamed media and could load sound casts over the
   network in authoring mode; everything they need is already here, so those checks
   always find it ready.
+- **The INFO button** puts a unit's information bubble away when pressed again for the
+  same unit. In the original it slid the bubble in again, and only the bubble's own Close
+  button put it away. This is the one change made to the games' Lingo, asked for by
+  players, and listed with its reason in `tools/transpile.py` (`FIXES`).
 
 ## Where JavaScript and Lingo differ
 
